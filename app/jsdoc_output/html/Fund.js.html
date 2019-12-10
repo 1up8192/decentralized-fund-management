@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Fund.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Fund.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import TruffleContract from 'truffle-contract';
+import fundArtifact from '../../../build/contracts/Fund.json';
+import promisifyEvent from '../../utils/promisifyEvent';
+
+export default class Fund {
+    constructor(provider, account, web3) {
+      this.fund = TruffleContract(fundArtifact);
+      this.fund.setProvider(provider);
+      this.account = account;
+      this.web3 = web3;
+  }
+
+  /**
+   * Make a new investment in the fund - for end users
+   * @param {number} amount amount of investment in wei
+   */
+  async invest(amount){
+    //todo
+  }
+
+  /**
+   * Withdraw all investments from the fund - for end users
+   */
+  async withdraw(){
+    //todo
+  }
+
+  /**
+   * for fund managers
+   * Initiate a new trade directive trough Orders (can manifest in making a new order or closing an existing one)
+   * If from address is an erc20 token, approval must happen first 
+   * (DEX endpoint contract must be approved of taking the needed amount of erc20 token: approveERC20 functions)
+   * @param {string} from ethereum address of erc20 token or 0x0...0 if ETH
+   * @param {stirng} to ethereum address of erc20 token or 0x0...0 if ETH
+   * @param {number} fromAmount 
+   * @param {number} toAmount 
+   */
+  async trade(from, to, fromAmount, toAmount){
+    //todo
+  }
+
+  /**
+   * for fund managers
+   * close every order and close fund 
+   */
+  async closeFund(){
+    //todo
+  }
+
+  /**
+   *  before erc20 trade DEX endpoint contract must be approved of taking the needed amount of erc20 token
+   * @param {string} token ethereum address of the token contract 
+   * @param {number} amount amount of token in wei to approve of, should be same as the from amount of the trade
+   * @param {string} dex indentifier of the dex to find it in dex registry
+   */
+  async approveERC20(token, amount, dex){
+    //todo
+  }
+
+  /**
+   * (ethereum) Event watcher function for new investments
+   * @param {funtion} callback should have an event parameter to handle it
+   * newInvestment event will have the following retrun values:
+   * event.returnvalues: {
+   *  investor, -address string
+   *  amount -number in wei
+   * }
+   * rest of the event object will look something like in the end of this example:
+   * https://web3js.readthedocs.io/en/1.0/web3-eth-contract.html#id34 
+   */
+  async watchNewInvestmentEvent(){
+    //todo
+  }  
+
+  /**
+   * (ethereum) Event watcher function for new withdrawals
+   * @param {funtion} callback should have an event parameter to handle it
+   * newWithdrawal event will have the following retrun values:
+   * event.returnvalues: {
+   *  investor, -address string
+   *  amount -number in wei
+   * }
+   * rest of the event object will look something like in the end of this example:
+   * https://web3js.readthedocs.io/en/1.0/web3-eth-contract.html#id34 
+   */
+  async watchNewWithdrawalEvent(){
+    //todo
+  }  
+  
+  /**
+   * (ethereum) Event watcher function for stop loss trigger
+   * @param {funtion} callback should have an event parameter to handle it
+   * stopLossTriggered event will have the no retrun values
+   * rest of the event object will look something like in the end of this example:
+   * https://web3js.readthedocs.io/en/1.0/web3-eth-contract.html#id34 
+   */
+  async watchStopLossTriggeredEvent(){
+    //todo
+  }  
+  
+  /**
+   * (ethereum) Event watcher function for fund closed event
+   * @param {funtion} callback should have an event parameter to handle it
+   * closeOrder event will have the no retrun values
+   * rest of the event object will look something like in the end of this example:
+   * https://web3js.readthedocs.io/en/1.0/web3-eth-contract.html#id34 
+   */
+  async watchFundClosedEvent(){
+    //todo
+  }  
+  
+  /**
+   * Returns a list of investmentRecord-s in the order they have created -newInvestment (ethereum) event-, 
+   * the number of returned investmentRecord-s is limited by the limit parameter
+   * @param {number} limit if 0, tries to return all, but can fail if there is too many
+   * 
+   * @typedef investmentRecord
+   * 
+   * @property {string} investor ethereum address of the investor
+   * @property {number} amount amount of investment in wei
+   * 
+   * @return {investmentRecord[]} list of fundAddress-s
+   */
+  async getLatestInvestmentsFromEvents(limit){
+    //todo
+  }
+
+}
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#approveERC20">approveERC20</a></li><li><a href="global.html#closeFund">closeFund</a></li><li><a href="global.html#invest">invest</a></li><li><a href="global.html#trade">trade</a></li><li><a href="global.html#watchFundClosedEvent">watchFundClosedEvent</a></li><li><a href="global.html#watchNewInvestmentEvent">watchNewInvestmentEvent</a></li><li><a href="global.html#watchNewWithdrawalEvent">watchNewWithdrawalEvent</a></li><li><a href="global.html#watchStopLossTriggeredEvent">watchStopLossTriggeredEvent</a></li><li><a href="global.html#withdraw">withdraw</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Thu Jun 20 2019 13:26:05 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
