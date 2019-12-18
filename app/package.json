@@ -20,7 +20,7 @@
     "chart.js": "^2.9.2",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
-    "truffle-contract": "^4.0.31",
+    "truffle-contract": "^4.0.31"
   },
   "eslintConfig": {
     "root": true,
