@@ -22,13 +22,7 @@ contract FundFactory is Ownable {
     }
 
     function createFund(
-        uint32 _startTime,
-        uint32 _endTime,
-        uint _globalTraderLimit,
-        uint _investMin,
-        uint _investMax,
-        address[] memory traderAddresses,
-        uint[] memory traderLimits
+        uint32 _endTime
     ) public returns (address) {
         Fund fund = new Fund(
             msg.sender, // portfolioManager

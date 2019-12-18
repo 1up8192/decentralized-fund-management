@@ -8,14 +8,7 @@ const getBalance = async (web3, account) => {
 };
 
   contract("Fund investment test", async accounts => {
-      const startTime = 2**32-2; //highest possible dates
-      const endTime = 2**32-1; //highest possible dates
-
-      const globalTraderLimit = 0;
-      const investMin = 0;
-      const investMax = 0;
-      const tarderList = [];
-      const traderLimitList = [];
+      const endTime = 2**32-1; //highest possible date
 
       const weiAmountToInvest = 12345;
       let fundInstance;
@@ -24,13 +17,7 @@ const getBalance = async (web3, account) => {
       beforeEach(async () => {
         const fundFactoryInstance = await FundFactory.deployed();
         const transactionReceipt = await fundFactoryInstance.createFund(
-        startTime,
-        endTime, 
-        globalTraderLimit,
-        investMin,
-        investMax,
-        tarderList,
-        traderLimitList,
+        endTime,
         {from: accounts[0]}
       );
         transactionReceipt.logs.forEach((item) => {
@@ -63,57 +50,10 @@ const getBalance = async (web3, account) => {
           });
       });
 
-      it("should set fundRules properly (min-max investment)", async () => {
-          const minInvestmentInWei = web3.utils.toWei("0.00001", "ether");
-          const maxInvestmentInWei = web3.utils.toWei("0.00003", "ether");
-
-          await fundInstance.setFundRules(
-              startTime, endTime, globalTraderLimit, minInvestmentInWei, maxInvestmentInWei, [false, false, false, true, true]);
-          const fundRules = await fundInstance.fundRules.call();
-
-          assert.equal(fundRules[5].toNumber(), minInvestmentInWei);
-          assert.equal(fundRules[6].toNumber(), maxInvestmentInWei);
-      });
-
-      it("should fail to invest when closed ended fund is active", async () => { //all funds are closed ended for now
+      it("should fail to invest when closed ended fund ended", async () => { //all funds are closed ended for now
         const weiAmountToInvest = web3.utils.toWei("0.00002", "ether");
-        await fundInstance.startFundNow({ from: accounts[0]});
+        await fundInstance.closeFund({ from: accounts[0]});
         await truffleAssert.fails(fundInstance.invest({ from: accounts[1], value: weiAmountToInvest}));
       });
 
-      it("should fail to invest to fund when the investment amount is lower than the limit", async () => {
-        const minInvestmentInWei = web3.utils.toWei("0.00002", "ether");
-        const maxInvestmentInWei = web3.utils.toWei("0.00003", "ether");
-        const weiAmountToInvest = web3.utils.toWei("0.00001", "ether");
-
-        await fundInstance.setFundRules(
-            startTime, endTime, globalTraderLimit, minInvestmentInWei, maxInvestmentInWei, [false, false, false, true, true]);
-
-        await truffleAssert.fails(fundInstance.invest({ from: accounts[1], value: weiAmountToInvest}));
-      });
-
-      it("should fail to invest to fund when the investment amount is higher than the limit", async () => {
-        const minInvestmentInWei = web3.utils.toWei("0.00001", "ether");
-        const maxInvestmentInWei = web3.utils.toWei("0.00003", "ether");
-        const weiAmountToInvest = web3.utils.toWei("0.00005", "ether");
-
-        await fundInstance.setFundRules(
-            startTime, endTime, globalTraderLimit, minInvestmentInWei, maxInvestmentInWei, [false, false, false, true, true]);
-
-        await truffleAssert.fails(fundInstance.invest({ from: accounts[1], value: weiAmountToInvest}));
-      });
-
-      it("should invest to fund properly when the investment amount is in the predefined range", async () => {
-        const minInvestmentInWei = web3.utils.toWei("0.00001", "ether");
-        const maxInvestmentInWei = web3.utils.toWei("0.00003", "ether");
-        const weiAmountToInvest = web3.utils.toWei("0.00002", "ether");
-
-        await fundInstance.setFundRules(
-            startTime, endTime, globalTraderLimit, minInvestmentInWei, maxInvestmentInWei, [false, false, false, true, true]);
-
-        await truffleAssert.passes(fundInstance.invest({ from: accounts[1], value: weiAmountToInvest}));
-        const updatedInvestment = await fundInstance.investments.call(accounts[1]);
-
-        assert.equal(updatedInvestment.toNumber(), weiAmountToInvest);
-      });
 })

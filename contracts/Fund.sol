@@ -172,12 +172,12 @@ contract Fund {
     }
 
     function closeFund() public onlyPM {
-
+        setEndTime(uint32(now));
     }
 
     function setEndTime(uint32 _endTime) public onlyPM {
         fundRules.endTime = _endTime;
-        require(now < fundRules.endTime, "now > endTime");
+        require(now <= fundRules.endTime, "now > endTime");
     }
 
 
