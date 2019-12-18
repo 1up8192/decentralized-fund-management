@@ -34,14 +34,8 @@ contract FundFactory is Ownable {
             msg.sender, // portfolioManager
             orders,
             adapterRegistry,
-            _startTime,
             _endTime,
-            _globalTraderLimit,
-            _investMin,
-            _investMax,
-            false,
-            traderAddresses,
-            traderLimits
+            false
         );
         emit fundCreated(address(fund));
         return address(fund);
