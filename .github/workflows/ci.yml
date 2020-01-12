@@ -20,15 +20,15 @@ jobs:
         MNEMONIC: ${{secrets.MNEMONIC}}
         INFURA_PROJECT_ID: ${{secrets.INFURA_PROJECT_ID}}
       run: |
-        - cp secrets.json.ci secrets.json
-        - sed -i -e "s|MNEMONIC_VALUE|${MNEMONIC}|g" secrets.json
-        - sed -i -e "s|INFURA_PROJECT_ID_VALUE|${INFURA_PROJECT_ID}|g" secrets.json
-        - cat secrets.json
-        - npm install -g truffle@^5.0.35
-        - npm ci
-        - truffle test test/FundCreationTest.js test/FundInvestmentTest.js test/FundTradeTest.js
-        - truffle test test/KyberInterfaceTest.js --network kovan
-        - truffle migrate --network kovan
-        - cd app
-        - npm ci
-        - npm run build
+        cp secrets.json.ci secrets.json
+        sed -i -e "s|MNEMONIC_VALUE|${MNEMONIC}|g" secrets.json
+        sed -i -e "s|INFURA_PROJECT_ID_VALUE|${INFURA_PROJECT_ID}|g" secrets.json
+        cat secrets.json
+        npm install -g truffle@^5.0.35
+        npm ci
+        truffle test test/FundCreationTest.js test/FundInvestmentTest.js test/FundTradeTest.js
+        truffle test test/KyberInterfaceTest.js --network kovan
+        truffle migrate --network kovan
+        cd app
+        npm ci
+        npm run build
