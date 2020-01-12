@@ -1,0 +1,34 @@
+name: Node-truffle CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-18.04
+    
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Use Node.js 10.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+    - name: install truffle, compile, deploy, 
+      env:
+        MNEMONIC: ${{secrets.MNEMONIC}}
+        INFURA_PROJECT_ID: ${{secrets.INFURA_PROJECT_ID}}
+      run: |
+        - cp secrets.json.ci secrets.json
+        - sed -i -e "s|MNEMONIC_VALUE|${MNEMONIC}|g" secrets.json
+        - sed -i -e "s|INFURA_PROJECT_ID_VALUE|${INFURA_PROJECT_ID}|g" secrets.json
+        - cat secrets.json
+        - npm install -g truffle@^5.0.35
+        - npm ci
+        - truffle test test/FundCreationTest.js test/FundInvestmentTest.js test/FundTradeTest.js
+        - truffle test test/KyberInterfaceTest.js --network kovan
+        - truffle migrate --network kovan
+        - cd app
+        - npm ci
+        - npm run build
