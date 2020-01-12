@@ -26,7 +26,7 @@ jobs:
         cat secrets.json
         npm install -g truffle@^5.0.35
         npm ci
-        truffle test test/FundCreationTest.js test/FundInvestmentTest.js test/FundTradeTest.js
+        truffle test test/FundCreationTest.js test/FundInvestmentTest.js test/FundOpenOrderTest.js test/FundCloseOrderTest.js
         truffle test test/KyberInterfaceTest.js --network kovan
         truffle migrate --network kovan
         cd app
