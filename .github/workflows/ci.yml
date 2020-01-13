@@ -29,6 +29,7 @@ jobs:
         truffle test test/FundCreationTest.js test/FundInvestmentTest.js test/FundOpenOrderTest.js test/FundCloseOrderTest.js
         truffle test test/KyberInterfaceTest.js --network kovan
         truffle migrate --network kovan
-        cd app
-        npm ci
-        npm run build
+        # TODO
+        # cd app
+        # npm ci
+        # npm run build
