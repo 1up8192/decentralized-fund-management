@@ -1,4 +1,4 @@
 # decentralized-fund-management
 decentralized fund management with ethereum smart contracts utilizing DEXs
 
-https://github.com/<OWNER>/<REPOSITORY>/workflows/<WORKFLOW_NAME>/badge.svg
+https://github.com//1up8192/decentralized-fund-management/workflows/Node-truffle CI/badge.svg
