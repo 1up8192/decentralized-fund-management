@@ -1,4 +1,4 @@
-name: Node-truffle CI
+name: contract tests and testnet migration
 
 on: [push]
 
