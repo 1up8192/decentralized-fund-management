@@ -7,8 +7,9 @@
     "test": "test"
   },
   "dependencies": {
-    "@truffle/hdwallet-provider": "1.0.18",
-    "openzeppelin-solidity": "^2.2.0",
+    "@truffle/hdwallet-provider": "^1.0.18",
+    "openzeppelin-solidity": "^2.5.0",
+    "solc": "^0.5.16",
     "truffle-hdwallet-provider": "^1.0.17"
   },
   "devDependencies": {

@@ -35,4 +35,16 @@ module.exports = {
       gasPrice: 20000000000, // 20 gwei
     }, */
   },
+  compilers: {
+    solc: {
+      version: "0.5.16",    // Fetch exact version from solc-bin (default: truffle's version)
+      settings: {          // See the solidity docs for advice about optimization and evmVersion
+       optimizer: {
+         enabled: true,
+         runs: 200
+       },
+       evmVersion: "byzantium"
+      }
+    }
+  }
 };
