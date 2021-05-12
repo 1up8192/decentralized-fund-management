@@ -17,7 +17,7 @@
     "@vue/cli-plugin-babel": "^4.0.0",
     "@vue/cli-plugin-eslint": "^4.0.0",
     "babel-eslint": "^10.0.3",
-    "chart.js": "^2.9.2",
+    "chart.js": "^2.9.4",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "truffle-contract": "^4.0.31"
